@@ -17,17 +17,7 @@ CCATemp <- tbl_df(read.csv("CCA1.csv", stringsAsFactors=F))
 #CCATemp$Date <- mdy(CCATemp$Date)
 
 
-CCATemp$DateTime <- as.POSIXct(paste(CCATemp$Date, CCATemp$Time), format="%m/%d/%Y %H:%M:%S %p")
+CCATemp$DateTime <- as.POSIXct(paste(CCATemp$Date, CCATemp$Time), format="%m/%d/%Y %I:%M:%S %p")
 
+plot(CCATemp$DateTime, CCATemp$Temp)
 
-# CLose but AM/PM not accounted for
-
-
-
-
-
-
-
-
-
-CCATemp$Timer <- as.POSIXct(CCATemp$Time, format='%I:%M:%S %p')
