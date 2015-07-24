@@ -1,8 +1,18 @@
+---
+title: "KalTemp"
+author: "James G. Hallett"
+date: "Friday, May 08, 2015"
+output: word_document
+---
+
+
+
+```{r}
 library(RODBC)
 library(tidyr)
 library(lubridate)
 library(dplyr)
-
+setwd("G:/github/KTWatertemp/Data")
 #####################################################################################
 # Kalispel Water Temperature
 #####################################################################################
@@ -15,23 +25,17 @@ CCATemp <- tbl_df(read.csv("CCA1.csv", stringsAsFactors=F))
 
 CCATemp$DateTime <- as.POSIXct(paste(CCATemp$Date, CCATemp$Time), format="%m/%d/%Y %I:%M:%S %p")
 
+
+
+```
+
+Plot of the raw temperature data:
+
+```{r, echo=FALSE}
 plot(CCATemp$DateTime, CCATemp$Temp)
-
-<<<<<<< HEAD
-NTemp <- select(CCATemp, Temp, DateTime) %>%
-  group_by(round(julian(DateTime))) %>%
-  summarize(total.count = n()) %>%
-  filter(total.count != 24 & total.count != 48)
-
-#merging different files
-
-DaysGT25 <- group_by(CCATemp, Date) %>%
+```
+The number of days with a temperature greater than 25C was `DaysGT25 <- group_by(CCATemp, Date) %>%
   filter(Temp > 25.0) %>%
-  summarise(count = n())
-=======
-DaysGT25 <- group_by(CCATemp, Date) %>%
-  filter(Temp > 25.0) %>%
-  summarise(count = n())
+  summarise(count = n())`.
 
 
->>>>>>> 2829654e9668b507be31f1e3171ffa36dd32d7e3
