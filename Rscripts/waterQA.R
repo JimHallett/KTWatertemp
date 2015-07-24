@@ -17,3 +17,13 @@ CCATemp$DateTime <- as.POSIXct(paste(CCATemp$Date, CCATemp$Time), format="%m/%d/
 
 plot(CCATemp$DateTime, CCATemp$Temp)
 
+NTemp <- select(CCATemp, Temp, DateTime) %>%
+  group_by(round(julian(DateTime))) %>%
+  summarize(total.count = n()) %>%
+  filter(total.count != 24 & total.count != 48)
+
+#merging different files
+
+DaysGT25 <- group_by(CCATemp, Date) %>%
+  filter(Temp > 25.0) %>%
+  summarise(count = n())
